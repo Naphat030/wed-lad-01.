@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ICE here - โฮมเมดไอศกรีมพาสเทลสุดคิวท์</title>
+  <!-- Google Fonts: Mali (Playful Thai & Eng) & Kanit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&family=Mali:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Canvas Confetti for celebratory clicks -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            mali: ['Mali', 'cursive', 'sans-serif'],
+            kanit: ['Kanit', 'sans-serif'],
+          },
+          colors: {
+            icePink: {
+              100: '#FFE5EC',
+              200: '#FFC2D1',
+              300: '#FFB3C6',
+              400: '#FF8FAB',
+              500: '#FB6F92',
+            },
+            iceMint: {
+              100: '#E8F8F5',
+              200: '#D1F2EB',
+              300: '#A3E4D7',
+              400: '#76D7C4',
+              500: '#48C9B0',
+            },
+            iceYellow: {
+              100: '#FEF9E7',
+              200: '#FCF3CF',
+              300: '#F9E79F',
+              400: '#F7DC6F',
+            },
+            iceLavender: {
+              100: '#F4ECF7',
+              200: '#E8DAEF',
+              300: '#D2B4DE',
+            },
+            iceCreamBg: '#FFFDF9',
+          },
+          animation: {
+            'bounce-slow': 'bounce 2.5s infinite',
+            'float': 'floating 3s ease-in-out infinite',
+            'wiggle': 'wiggle 1s ease-in-out infinite',
+            'spin-slow': 'spin 12s linear infinite',
+          },
+          keyframes: {
+            floating: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-10px)' },
+            },
+            wiggle: {
+              '0%, 100%': { transform: 'rotate(-3deg)' },
+              '50%': { transform: 'rotate(3deg)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Mali', 'Kanit', sans-serif;
+      background-color: #FFFDF9;
+      color: #4A4A4A;
+      overflow-x: hidden;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #FFE5EC;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #FF8FAB;
+      border-radius: 999px;
+    }
+
+    /* Realistic 3D Scoop Texture & Lighting */
+    .realistic-scoop {
+      position: relative;
+      border-radius: 50% 50% 46% 46%;
+      background-size: 150%;
+      background-position: center;
+      box-shadow: 
+        inset -12px -12px 26px rgba(0, 0, 0, 0.45),
+        inset 10px 10px 20px rgba(255, 255, 255, 0.5),
+        0 14px 28px -4px rgba(0, 0, 0, 0.35);
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .realistic-scoop::before {
+      content: '';
+      position: absolute;
+      top: 10%;
+      left: 15%;
+      width: 40%;
+      height: 25%;
+      border-radius: 50%;
+      background: radial-gradient(ellipse at center, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 80%);
+      filter: blur(1px);
+      pointer-events: none;
+    }
+
+    /* Ice Cream Scoop Ruffled Skirt (Realistic artisan edge) */
+    .scoop-skirt {
+      position: absolute;
+      bottom: -4px;
+      left: 2%;
+      width: 96%;
+      height: 18px;
+      border-radius: 8px 8px 16px 16px;
+      background-size: 150%;
+      background-position: bottom;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+      filter: brightness(0.85) contrast(1.1);
+      clip-path: polygon(
+        0% 0%, 100% 0%, 100% 70%, 95% 100%, 90% 65%, 82% 95%, 75% 70%, 68% 100%,
+        60% 70%, 52% 95%, 45% 65%, 38% 100%, 30% 70%, 22% 95%, 15% 65%, 8% 100%, 0% 70%
+      );
+    }
+
+    /* Realistic Waffle Cone with 3D Embossed Grid & Shading */
+    .realistic-cone {
+      width: 140px;
+      height: 170px;
+      position: relative;
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      background: 
+        repeating-linear-gradient(45deg, #d37c38, #d37c38 8px, #ba5d1e 9px, #d37c38 10px),
+        repeating-linear-gradient(-45deg, #e5934e, #e5934e 8px, #934311 9px, #e5934e 10px);
+      box-shadow: 
+        inset -15px 0 25px rgba(0,0,0,0.45),
+        inset 12px 0 20px rgba(255,255,255,0.3);
+      filter: drop-shadow(0 15px 18px rgba(0,0,0,0.35));
+    }
+    .realistic-cone::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 12px;
+      background: linear-gradient(180deg, rgba(0,0,0,0.25), transparent);
+    }
+
+    /* Sprinkles animation */
+    .sprinkle {
+      position: absolute;
+      width: 11px;
+      height: 4px;
+      border-radius: 2px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    }
+  </style>
+</head>
+<body class="selection:bg-icePink-300 selection:text-white">
+
+  <!-- NAVBAR -->
+  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-icePink-200 transition-all duration-300 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <!-- Logo -->
+      <a href="#home" class="flex items-center gap-3 group">
+        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-icePink-400 to-iceYellow-300 flex items-center justify-center shadow-md transform group-hover:scale-105 group-hover:rotate-6 transition-all duration-300">
+          <i data-lucide="ice-cream-cone" class="w-7 h-7 text-white stroke-[2.5]"></i>
+        </div>
+        <div>
+          <span class="text-2xl font-black tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-icePink-500 via-rose-400 to-iceMint-500">ICE here</span>
+          <span class="hidden sm:inline-block text-xs font-semibold px-2 py-0.5 ml-2 bg-icePink-100 text-icePink-500 rounded-full border border-icePink-200">Craft Ice Cream 🍦</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-8 text-base font-semibold text-gray-700">
+        <a href="#home" class="hover:text-icePink-500 transition-colors">หน้าแรก</a>
+        <a href="#builder" class="hover:text-icePink-500 transition-colors flex items-center gap-1.5">
+          <span>Scoop Builder</span>
+          <span class="bg-icePink-400 text-white text-[10px] px-1.5 py-0.5 rounded-full font-bold animate-pulse">HIT!</span>
+        </a>
+        <a href="#flavors" class="hover:text-icePink-500 transition-colors">รสชาติทั้งหมด</a>
+        <a href="#story" class="hover:text-icePink-500 transition-colors">เรื่องราวของเรา</a>
+        <a href="#location" class="hover:text-icePink-500 transition-colors">พิกัดร้าน</a>
+      </nav>
+
+      <!-- CTA Button -->
+      <div class="flex items-center gap-3">
+        <a href="#builder" class="bg-gradient-to-r from-icePink-400 to-icePink-500 hover:from-icePink-500 hover:to-rose-400 text-white font-bold px-5 py-2.5 rounded-full shadow-lg shadow-icePink-200 hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-300 flex items-center gap-2 text-sm sm:text-base">
+          <i data-lucide="sparkles" class="w-4 h-4"></i>
+          <span>จัดไอติมเอง</span>
+        </a>
+
+        <!-- Mobile Menu Button -->
+        <button id="mobileMenuBtn" class="md:hidden p-2 rounded-xl text-gray-600 hover:bg-icePink-100 transition-colors" aria-label="Open Menu">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Nav Dropdown -->
+    <div id="mobileMenu" class="hidden md:hidden bg-white/95 border-b border-icePink-200 px-6 py-4 space-y-3 font-semibold text-gray-700 shadow-xl">
+      <a href="#home" class="block py-2 hover:text-icePink-500 transition-colors mobile-link">หน้าแรก</a>
+      <a href="#builder" class="block py-2 text-icePink-500 transition-colors mobile-link">Scoop Builder (ออกแบบไอติม) ✨</a>
+      <a href="#flavors" class="block py-2 hover:text-icePink-500 transition-colors mobile-link">รสชาติทั้งหมด</a>
+      <a href="#story" class="block py-2 hover:text-icePink-500 transition-colors mobile-link">เรื่องราวของเรา</a>
+      <a href="#location" class="block py-2 hover:text-icePink-500 transition-colors mobile-link">พิกัดร้าน & เวลาเปิดปิด</a>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section id="home" class="relative pt-12 pb-20 lg:pt-20 lg:pb-32 overflow-hidden">
+    <!-- Pastel Background Blurs & Blobs -->
+    <div class="absolute -top-24 -left-24 w-96 h-96 bg-icePink-200/50 rounded-full blur-3xl -z-10 animate-float"></div>
+    <div class="absolute top-1/2 -right-24 w-96 h-96 bg-iceMint-200/50 rounded-full blur-3xl -z-10 animate-float" style="animation-delay: 1.5s;"></div>
+    <div class="absolute bottom-10 left-1/3 w-80 h-80 bg-iceYellow-200/50 rounded-full blur-3xl -z-10"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <!-- Hero Text -->
+        <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+          <div class="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-sm border border-icePink-200 text-icePink-500 text-sm font-bold animate-bounce-slow">
+            <span class="flex h-2.5 w-2.5 relative">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-icePink-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-icePink-500"></span>
+            </span>
+            พร้อมเสิร์ฟความสดชื่นทุกวัน 🍦 Handmade with Love
+          </div>
+
+          <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-gray-800 leading-[1.15]">
+            ความสุขคำโตๆ <br>
+            เริ่มต้นที่ร้าน <span class="text-transparent bg-clip-text bg-gradient-to-r from-icePink-500 via-rose-400 to-iceMint-500 underline decoration-iceYellow-300 decoration-wavy decoration-2">ICE here!</span>
+          </h1>
+
+          <p class="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+            ไอศกรีมคราฟต์โฮมเมดสไตล์พาสเทล รสสัมผัสเนียนนุ่มละมุนลิ้น ใช้วัตถุดิบธรรมชาติเกรดพรีเมียม ไม่หวานบาดคอ อร่อยฟินจนต้องร้องว่า <span class="font-bold text-icePink-500">“ไอซ์อยู่นี่แล้ว!”</span>
+          </p>
+
+          <!-- Action Buttons -->
+          <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+            <a href="#builder" class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-icePink-500 to-rose-400 hover:from-rose-400 hover:to-icePink-500 text-white rounded-full font-bold text-lg shadow-xl shadow-icePink-200 hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center gap-3">
+              <i data-lucide="wand-2" class="w-5 h-5"></i>
+              <span>ลองจัดไอติมด้วยตัวเอง</span>
+            </a>
+            <a href="#flavors" class="w-full sm:w-auto px-8 py-4 bg-white hover:bg-icePink-50 text-gray-700 border-2 border-icePink-200 rounded-full font-bold text-lg shadow-sm hover:border-icePink-400 hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center gap-2">
+              <i data-lucide="book-open" class="w-5 h-5 text-icePink-500"></i>
+              <span>ดูเมนูรสชาติ</span>
+            </a>
+          </div>
+
+          <!-- Quick Stats / Badges -->
+          <div class="grid grid-cols-3 gap-4 pt-8 border-t border-icePink-100 max-w-lg mx-auto lg:mx-0">
+            <div class="text-center lg:text-left">
+              <div class="text-2xl sm:text-3xl font-black text-icePink-500">100%</div>
+              <div class="text-xs sm:text-sm text-gray-500 font-medium">นมสดแท้ฮอกไกโด</div>
+            </div>
+            <div class="text-center lg:text-left">
+              <div class="text-2xl sm:text-3xl font-black text-iceMint-500">12+</div>
+              <div class="text-xs sm:text-sm text-gray-500 font-medium">รสชาติโฮมเมด</div>
+            </div>
+            <div class="text-center lg:text-left">
+              <div class="text-2xl sm:text-3xl font-black text-amber-500">0%</div>
+              <div class="text-xs sm:text-sm text-gray-500 font-medium">สารกันบูด & สารปรุงแต่ง</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Visual (Realistic Artisan Ice Cream Showcase) -->
+        <div class="lg:col-span-5 relative flex justify-center">
+          <div class="relative w-full max-w-md">
+            
+            <!-- Floating Decorative Pastel Badges -->
+            <div class="absolute -top-4 -left-4 z-30 bg-white/95 backdrop-blur-md px-4 py-2 rounded-2xl shadow-xl border border-icePink-200 flex items-center gap-2 transform -rotate-3 animate-float">
+              <span class="text-2xl">🍓</span>
+              <div>
+                <div class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Signature Flavor</div>
+                <div class="text-xs font-black text-icePink-500">Strawberry & Cream</div>
+              </div>
+            </div>
+
+            <div class="absolute -bottom-5 -right-3 z-30 bg-white/95 backdrop-blur-md px-4 py-2.5 rounded-2xl shadow-xl border border-iceMint-200 flex items-center gap-2.5 transform rotate-2 animate-bounce-slow">
+              <div class="w-8 h-8 rounded-full bg-iceMint-100 text-iceMint-500 flex items-center justify-center font-bold text-sm">
+                ⭐
+              </div>
+              <div>
+                <div class="text-xs font-black text-gray-800">4.9 / 5.0 Rating</div>
+                <div class="text-[10px] text-gray-500 font-medium">จากลูกค้าหน้าร้าน 1,200+ คน</div>
+              </div>
+            </div>
+
+            <!-- Realistic Photo Card with soft 3D glow -->
+            <div class="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-white group">
+              <img 
+                src="https://images.unsplash.com/photo-1568644396922-5c3bfae12521?auto=format&fit=crop&w=800&q=80" 
+                alt="ICE here artisanal handmade ice cream cone" 
+                class="w-full h-[450px] object-cover group-hover:scale-105 transition-transform duration-700 filter contrast-[1.03]"
+              >
+              <!-- Gradient Overlay at bottom of photo -->
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex flex-col justify-end p-6 text-white">
+                <span class="inline-block bg-icePink-500/90 backdrop-blur-sm text-[11px] font-extrabold uppercase tracking-widest px-3 py-1 rounded-full w-fit mb-2 shadow-sm">
+                  Fresh Batch Today 🍦
+                </span>
+                <h3 class="text-xl font-black drop-shadow">Triple Scoops with Waffle Cone</h3>
+                <p class="text-xs text-white/90 drop-shadow mt-1">เสิร์ฟความสดชื่นแบบโฮมเมดทุกวัน พร้อมท็อปปิ้งเบอร์รี่สดฉ่ำ</p>
+              </div>
+            </div>
+
+            <!-- Background decorative pastel circle -->
+            <div class="absolute -top-6 -right-6 w-32 h-32 bg-iceYellow-200/60 rounded-full blur-xl -z-10"></div>
+            <div class="absolute -bottom-6 -left-6 w-36 h-36 bg-icePink-300/40 rounded-full blur-xl -z-10"></div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERACTIVE SCOOP BUILDER SECTION (KEY HIGHLIGHT) -->
+  <section id="builder" class="py-20 bg-gradient-to-b from-white via-icePink-100/50 to-white relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto mb-14">
+        <span class="inline-block text-xs font-extrabold uppercase tracking-widest text-icePink-500 bg-icePink-100 border border-icePink-200 px-4 py-1 rounded-full mb-3">
+          ✨ Interactive Scoop Lab
+        </span>
+        <h2 class="text-3xl sm:text-5xl font-black text-gray-800 tracking-tight">
+          ICE here Scoop Builder
+        </h2>
+        <p class="text-gray-600 mt-3 text-base sm:text-lg">
+          ลองออกแบบเมนูไอศกรีมในฝันของคุณ! เลือกภาชนะ เลือกรสชาติที่ชอบ และโรยท็อปปิ้งแบบจัดเต็ม แล้วแชร์สูตรให้เพื่อนได้เลย
+        </p>
+      </div>
+
+      <!-- Builder Container (2-Column Grid) -->
+      <div class="bg-white rounded-3xl shadow-2xl border-2 border-icePink-200 overflow-hidden">
+        <div class="grid grid-cols-1 lg:grid-cols-12">
+          
+          <!-- LEFT COLUMN: CONTROLS & SELECTIONS -->
+          <div class="lg:col-span-7 p-6 sm:p-10 border-b lg:border-b-0 lg:border-r border-icePink-100 space-y-8">
+            
+            <!-- STEP 1: CHOOSE VESSEL -->
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-2">
+                  <span class="w-7 h-7 rounded-full bg-icePink-500 text-white font-black text-sm flex items-center justify-center">1</span>
+                  <h3 class="text-lg font-bold text-gray-800">เลือกภาชนะเสิร์ฟ (Vessel)</h3>
+                </div>
+                <span class="text-xs text-gray-400 font-medium">เลือก 1 อย่าง</span>
+              </div>
+              <div class="grid grid-cols-3 gap-3" id="vesselContainer">
+                <!-- Waffle Cone (Real Artisan Cone) -->
+                <button type="button" onclick="selectVessel('cone')" id="vessel-cone" class="vessel-btn p-3 rounded-2xl border-2 border-icePink-400 bg-icePink-50 text-center transition-all duration-200 hover:scale-[1.02] flex flex-col items-center justify-between gap-1 shadow-sm">
+                  <img src="assets/waffle_cone.png" alt="Real Waffle Cone" class="w-10 h-12 object-contain filter drop-shadow-sm pointer-events-none">
+                  <div>
+                    <div class="font-black text-xs sm:text-sm text-gray-800">Waffle Cone</div>
+                    <span class="text-[11px] text-icePink-500 font-bold">+0 ฿ (โคนวาฟเฟิลแท้)</span>
+                  </div>
+                </button>
+                <!-- Pastel Cup -->
+                <button type="button" onclick="selectVessel('cup')" id="vessel-cup" class="vessel-btn p-3 rounded-2xl border-2 border-gray-200 hover:border-icePink-300 bg-white text-center transition-all duration-200 hover:scale-[1.02] flex flex-col items-center justify-between gap-1">
+                  <span class="text-3xl mt-1">🍨</span>
+                  <div>
+                    <div class="font-black text-xs sm:text-sm text-gray-800">Pastel Cup</div>
+                    <span class="text-[11px] text-icePink-500 font-bold">+0 ฿ (ถ้วยกระดาษ)</span>
+                  </div>
+                </button>
+                <!-- Warm Brioche -->
+                <button type="button" onclick="selectVessel('brioche')" id="vessel-brioche" class="vessel-btn p-3 rounded-2xl border-2 border-gray-200 hover:border-icePink-300 bg-white text-center transition-all duration-200 hover:scale-[1.02] flex flex-col items-center justify-between gap-1">
+                  <span class="text-3xl mt-1">🍞</span>
+                  <div>
+                    <div class="font-black text-xs sm:text-sm text-gray-800">Warm Brioche</div>
+                    <span class="text-[11px] text-amber-600 font-bold">+25 ฿ (ขนมปังเนยสด)</span>
+                  </div>
+                </button>
+              </div>
+            </div>
+
+            <!-- STEP 2: CHOOSE NUMBER OF SCOOPS -->
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-2">
+                  <span class="w-7 h-7 rounded-full bg-icePink-500 text-white font-black text-sm flex items-center justify-center">2</span>
+                  <h3 class="text-lg font-bold text-gray-800">จำนวนลูกไอติม (Scoop Count)</h3>
+                </div>
+                <span class="text-xs text-gray-400 font-medium">สูงสุด 3 ลูก</span>
+              </div>
+              <div class="grid grid-cols-3 gap-3">
+                <button type="button" onclick="setScoopCount(1)" id="count-1" class="count-btn py-3 rounded-2xl border-2 border-gray-200 hover:border-icePink-300 font-bold text-sm text-gray-700 bg-white transition-all">
+                  1 ลูก (69 ฿)
+                </button>
+                <button type="button" onclick="setScoopCount(2)" id="count-2" class="count-btn py-3 rounded-2xl border-2 border-icePink-400 bg-icePink-50 font-bold text-sm text-icePink-600 transition-all shadow-sm">
+                  2 ลูก (119 ฿)
+                </button>
+                <button type="button" onclick="setScoopCount(3)" id="count-3" class="count-btn py-3 rounded-2xl border-2 border-gray-200 hover:border-icePink-300 font-bold text-sm text-gray-700 bg-white transition-all">
+                  3 ลูก (159 ฿) 👑
+                </button>
+              </div>
+            </div>
+
+            <!-- STEP 3: PICK FLAVORS -->
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center gap-2">
+                  <span class="w-7 h-7 rounded-full bg-icePink-500 text-white font-black text-sm flex items-center justify-center">3</span>
+                  <h3 class="text-lg font-bold text-gray-800">เลือกรสชาติสำหรับแต่ละลูก</h3>
+                </div>
+                <span id="flavorNotice" class="text-xs font-bold text-icePink-500 bg-icePink-100 px-2 py-0.5 rounded-full">เลือกลูกที่ 1</span>
+              </div>
+
+              <!-- Scoop Slots Tabs -->
+              <div class="flex gap-2 mb-4" id="scoopSlotTabs">
+                <!-- Dynamically rendered buttons for Slot 1, 2, 3 -->
+              </div>
+
+              <!-- Flavors Grid -->
+              <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 max-h-60 overflow-y-auto p-1.5 rounded-2xl bg-gray-50 border border-gray-100" id="flavorSelectionGrid">
+                <!-- Injected via JavaScript -->
+              </div>
+            </div>
+
+            <!-- STEP 4: CHOOSE TOPPINGS -->
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center gap-2">
+                  <span class="w-7 h-7 rounded-full bg-icePink-500 text-white font-black text-sm flex items-center justify-center">4</span>
+                  <h3 class="text-lg font-bold text-gray-800">ท็อปปิ้ง & ซอส (Toppings)</h3>
+                </div>
+                <span class="text-xs text-gray-400 font-medium">เลือกได้ตามใจชอบ</span>
+              </div>
+
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5" id="toppingsContainer">
+                <!-- Rainbow Sprinkles -->
+                <button type="button" onclick="toggleTopping('sprinkles')" id="top-sprinkles" class="top-btn p-2.5 rounded-xl border-2 border-gray-200 bg-white text-center hover:border-icePink-300 transition-all flex flex-col items-center">
+                  <span class="text-2xl">🌈</span>
+                  <span class="text-xs font-bold text-gray-700 mt-1">เรนโบว์สปริงเคิล</span>
+                  <span class="text-[10px] text-gray-500">+10 ฿</span>
+                </button>
+                <!-- Whipped Cream -->
+                <button type="button" onclick="toggleTopping('whipped')" id="top-whipped" class="top-btn p-2.5 rounded-xl border-2 border-gray-200 bg-white text-center hover:border-icePink-300 transition-all flex flex-col items-center">
+                  <span class="text-2xl">🧁</span>
+                  <span class="text-xs font-bold text-gray-700 mt-1">วิปครีมฟู</span>
+                  <span class="text-[10px] text-gray-500">+15 ฿</span>
+                </button>
+                <!-- Red Cherry -->
+                <button type="button" onclick="toggleTopping('cherry')" id="top-cherry" class="top-btn p-2.5 rounded-xl border-2 border-gray-200 bg-white text-center hover:border-icePink-300 transition-all flex flex-col items-center">
+                  <span class="text-2xl">🍒</span>
+                  <span class="text-xs font-bold text-gray-700 mt-1">เชอร์รี่เชื่อม</span>
+                  <span class="text-[10px] text-gray-500">+10 ฿</span>
+                </button>
+                <!-- Choc Fudge Drizzle -->
+                <button type="button" onclick="toggleTopping('chocolate')" id="top-chocolate" class="top-btn p-2.5 rounded-xl border-2 border-gray-200 bg-white text-center hover:border-icePink-300 transition-all flex flex-col items-center">
+                  <span class="text-2xl">🍫</span>
+                  <span class="text-xs font-bold text-gray-700 mt-1">ซอสช็อกโกแลต</span>
+                  <span class="text-[10px] text-gray-500">+10 ฿</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Quick Action Helpers (Randomizer & Reset) -->
+            <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+              <button type="button" onclick="randomizeIceCream()" class="px-4 py-2 bg-iceMint-100 hover:bg-iceMint-200 text-teal-800 rounded-xl text-xs font-bold flex items-center gap-2 transition-all">
+                <i data-lucide="shuffle" class="w-3.5 h-3.5"></i>
+                <span>สุ่มสูตรเซอร์ไพรส์ 🎲</span>
+              </button>
+              <button type="button" onclick="resetBuilder()" class="px-4 py-2 text-gray-400 hover:text-rose-500 text-xs font-semibold flex items-center gap-1 transition-colors">
+                <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+                <span>รีเซ็ตใหม่</span>
+              </button>
+            </div>
+
+          </div>
+
+          <!-- RIGHT COLUMN: LIVE VISUAL PREVIEW & SUMMARY -->
+          <div class="lg:col-span-5 bg-gradient-to-br from-pink-50/60 via-amber-50/30 to-teal-50/40 p-6 sm:p-10 flex flex-col justify-between relative overflow-hidden">
+            
+            <!-- Top Status Pill -->
+            <div class="flex items-center justify-between z-10">
+              <div class="bg-white/90 backdrop-blur-sm px-3.5 py-1.5 rounded-full border border-icePink-200 text-xs font-bold text-gray-700 flex items-center gap-1.5 shadow-sm">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                <span>Live Preview ✨</span>
+              </div>
+              <div id="recipeCodeBadge" class="bg-icePink-100 text-icePink-600 font-mono text-[11px] font-bold px-2.5 py-1 rounded-lg border border-icePink-200">
+                #ICE-CRAFT
+              </div>
+            </div>
+
+            <!-- Center Stage: Dynamic Ice Cream Visual Rendering -->
+            <div class="my-8 flex flex-col items-center justify-center min-h-[380px] relative select-none">
+              
+              <!-- Floating Sparkles & Droplets (CSS Animation) -->
+              <div class="absolute inset-0 pointer-events-none flex items-center justify-center">
+                <span class="absolute -top-2 left-12 text-xl animate-float opacity-75">✨</span>
+                <span class="absolute top-1/4 right-8 text-lg animate-wiggle opacity-75">💖</span>
+                <span class="absolute bottom-1/3 left-6 text-sm animate-bounce-slow opacity-60">🍓</span>
+              </div>
+
+              <!-- Ice Cream Graphic Stack -->
+              <div id="visualIceCreamStage" class="relative flex flex-col items-center transition-all duration-300">
+                <!-- Toppings overlay (Cherry, Cream, Sprinkles) with realistic 3D depth -->
+                <div id="visualCherry" class="hidden absolute -top-10 z-40 transform hover:scale-125 transition-all cursor-pointer">
+                  <span class="text-5xl filter drop-shadow-[0_8px_10px_rgba(0,0,0,0.45)]">🍒</span>
+                </div>
+
+                <div id="visualWhipped" class="hidden absolute -top-8 z-30 transform transition-all">
+                  <div class="relative w-28 h-14 bg-gradient-to-b from-white via-white to-amber-50 rounded-t-full shadow-xl border border-white/90 flex items-center justify-center">
+                    <div class="absolute -top-3 w-8 h-8 bg-white rounded-full shadow-inner"></div>
+                    <div class="w-16 h-3 bg-amber-100/40 rounded-full blur-[1px]"></div>
+                  </div>
+                </div>
+
+                <!-- Rich Liquid Chocolate Drizzle Visual -->
+                <div id="visualChocolate" class="hidden absolute top-2 z-35 w-36 h-12 flex justify-around pointer-events-none">
+                  <div class="w-3.5 h-12 bg-gradient-to-b from-amber-950 to-stone-900 rounded-full shadow-md -mt-2"></div>
+                  <div class="w-2.5 h-16 bg-gradient-to-b from-amber-950 to-stone-900 rounded-full shadow-md -mt-1"></div>
+                  <div class="w-4 h-10 bg-gradient-to-b from-amber-950 to-stone-900 rounded-full shadow-md -mt-2"></div>
+                  <div class="w-2.5 h-14 bg-gradient-to-b from-amber-950 to-stone-900 rounded-full shadow-md -mt-1"></div>
+                </div>
+
+                <!-- Scoops Stack (Dynamically filled) -->
+                <div id="visualScoopsContainer" class="flex flex-col items-center">
+                  <!-- Injected by JS: Scoop 3, Scoop 2, Scoop 1 -->
+                </div>
+
+                <!-- Vessel Base (Cone, Cup, Brioche) -->
+                <div id="visualVesselContainer" class="mt-2 relative z-20">
+                  <!-- Injected by JS -->
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Bottom Summary Card & Pricing -->
+            <div class="bg-white/95 backdrop-blur-md rounded-2xl p-5 border border-icePink-200 shadow-xl z-10 space-y-3">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h4 id="summaryTitle" class="font-black text-gray-800 text-lg">My Custom Ice Cream</h4>
+                  <p id="summarySubtitle" class="text-xs text-gray-500 font-medium">Waffle Cone • 2 ลูก</p>
+                </div>
+                <div class="text-right">
+                  <div class="text-xs text-gray-400">ราคารวม</div>
+                  <div id="totalPrice" class="text-2xl font-black text-icePink-500">119 ฿</div>
+                </div>
+              </div>
+
+              <!-- Selected Items Pills -->
+              <div id="summaryPills" class="flex flex-wrap gap-1.5 pt-1">
+                <!-- Injected via JS -->
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="grid grid-cols-2 gap-2 pt-2">
+                <button type="button" onclick="celebrateAndSaveRecipe()" class="w-full py-3 bg-gradient-to-r from-icePink-400 to-icePink-500 hover:from-icePink-500 hover:to-rose-400 text-white rounded-xl font-bold text-xs sm:text-sm shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-1.5 active:scale-95">
+                  <i data-lucide="share-2" class="w-4 h-4"></i>
+                  <span>เซฟสูตรนี้ไว้สั่ง 💌</span>
+                </button>
+                <button type="button" onclick="copyRecipeSummary()" class="w-full py-3 bg-icePink-50 hover:bg-icePink-100 text-icePink-600 rounded-xl font-bold text-xs sm:text-sm border border-icePink-200 transition-all flex items-center justify-center gap-1.5 active:scale-95">
+                  <i data-lucide="copy" class="w-4 h-4"></i>
+                  <span id="copyBtnText">คัดลอกสูตร</span>
+                </button>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FLAVORS SHOWCASE SECTION -->
+  <section id="flavors" class="py-20 bg-white relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="inline-block text-xs font-extrabold uppercase tracking-widest text-iceMint-500 bg-iceMint-100 border border-iceMint-200 px-4 py-1 rounded-full mb-3">
+          🍨 Craft & Homemade
+        </span>
+        <h2 class="text-3xl sm:text-5xl font-black text-gray-800 tracking-tight">
+          รสชาติความอร่อยที่ร้าน ICE here
+        </h2>
+        <p class="text-gray-600 mt-3 text-base sm:text-lg">
+          คัดสรรวัตถุดิบชั้นดีจากธรรมชาติ ปั่นสดใหม่ทุกสัปดาห์ เพื่อให้ได้สัมผัสที่เนียนนุ่ม หอมละมุนในทุกคำ
+        </p>
+
+        <!-- Category Filter Tabs -->
+        <div class="flex flex-wrap items-center justify-center gap-2 mt-8" id="menuFilters">
+          <button onclick="filterFlavors('all')" class="flavor-filter-btn px-5 py-2 rounded-full text-sm font-bold bg-icePink-500 text-white shadow-md transition-all active:scale-95" data-category="all">
+            ทั้งหมด (All)
+          </button>
+          <button onclick="filterFlavors('bestseller')" class="flavor-filter-btn px-5 py-2 rounded-full text-sm font-bold bg-gray-100 text-gray-700 hover:bg-icePink-100 transition-all active:scale-95" data-category="bestseller">
+            ⭐ ขวัญใจมหาชน
+          </button>
+          <button onclick="filterFlavors('vegan')" class="flavor-filter-btn px-5 py-2 rounded-full text-sm font-bold bg-gray-100 text-gray-700 hover:bg-icePink-100 transition-all active:scale-95" data-category="vegan">
+            🌱 Vegan & Dairy-Free
+          </button>
+          <button onclick="filterFlavors('chocolate')" class="flavor-filter-btn px-5 py-2 rounded-full text-sm font-bold bg-gray-100 text-gray-700 hover:bg-icePink-100 transition-all active:scale-95" data-category="chocolate">
+            🍫 ช็อกโกแลต & ชา
+          </button>
+        </div>
+      </div>
+
+      <!-- Flavors Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" id="menuFlavorsGrid">
+        <!-- Rendered by JS -->
+      </div>
+
+      <!-- Custom Flavor Note Banner -->
+      <div class="mt-16 bg-gradient-to-r from-icePink-100 via-iceYellow-100 to-iceMint-100 rounded-3xl p-8 border border-icePink-200 text-center max-w-4xl mx-auto shadow-sm flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div class="text-center sm:text-left">
+          <h4 class="text-xl font-black text-gray-800">มีรสชาติพิเศษประจำฤดูกาล (Seasonal Flavors) 🥭</h4>
+          <p class="text-sm text-gray-600 mt-1">สอบถามรสชาติพิเศษประจำสัปดาห์ได้ที่หน้าเคาน์เตอร์ หรือทาง Instagram ของเราเลย!</p>
+        </div>
+        <a href="#location" class="px-6 py-3 bg-white text-icePink-500 font-bold rounded-full border border-icePink-300 hover:shadow-md hover:scale-105 active:scale-95 transition-all text-sm shrink-0">
+          สอบถามพิกัด & ทางไปร้าน 📍
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- STORYTELLING SECTION -->
+  <section id="story" class="py-20 bg-gradient-to-b from-white to-icePink-50/60 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Story Visual (Real Artisan Photo) -->
+        <div class="lg:col-span-5 relative">
+          <div class="relative mx-auto max-w-md">
+            <!-- Decorative pastel frame -->
+            <div class="absolute -top-4 -left-4 w-full h-full rounded-3xl border-4 border-iceMint-300 transform -rotate-3 -z-10"></div>
+            <div class="bg-white p-3 rounded-3xl shadow-xl border border-icePink-200 relative group overflow-hidden">
+              <img 
+                src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=800&q=80" 
+                alt="ICE here artisanal handcrafted ice cream creation" 
+                class="w-full h-84 rounded-2xl object-cover group-hover:scale-105 transition-transform duration-700"
+              >
+              <div class="p-4 text-center">
+                <div class="font-black text-xl text-gray-800 mb-1">Crafted with Heart 💖</div>
+                <p class="text-xs text-gray-600 leading-relaxed">
+                  "เราเชื่อว่าไอติมหนึ่งถ้วย ไม่ใช่แค่อาหารหวาน แต่คือการชาร์จพลังและเติมรอยยิ้มให้กับวันเหนื่อยๆ ของทุกคน"
+                </p>
+                <div class="mt-3 inline-block px-3 py-1 bg-icePink-50 rounded-full text-[11px] font-bold text-icePink-500 border border-icePink-200">
+                  Est. 2024 • Fresh Homemade in Bangkok
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Story Content -->
+        <div class="lg:col-span-7 space-y-6">
+          <span class="inline-block text-xs font-extrabold uppercase tracking-widest text-icePink-500 bg-icePink-100 border border-icePink-200 px-4 py-1 rounded-full">
+            📖 เรื่องราวของ ICE here
+          </span>
+          <h2 class="text-3xl sm:text-5xl font-black text-gray-800 tracking-tight leading-tight">
+            ทำไมต้องชื่อ <span class="text-icePink-500">ICE here?</span>
+          </h2>
+          <p class="text-gray-600 text-base sm:text-lg leading-relaxed">
+            จุดเริ่มต้นของ <strong>ICE here</strong> เกิดจากความหลงใหลในกลิ่นหอมของนมสด วานิลลา และความหวานสดชื่นของผลไม้แท้ เราตั้งใจสร้างพื้นที่เล็กๆ ที่เมื่อก้าวเข้ามา ทุกคนจะรู้สึกอบอุ่น สดใส เหมือนได้กลับไปเป็นเด็กอีกครั้ง
+          </p>
+
+          <!-- 3 Pillars -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
+            <div class="bg-white p-4 rounded-2xl border border-icePink-100 shadow-sm">
+              <div class="w-10 h-10 rounded-xl bg-icePink-100 flex items-center justify-center text-icePink-500 mb-3">
+                <i data-lucide="heart" class="w-5 h-5"></i>
+              </div>
+              <h4 class="font-bold text-gray-800 text-sm mb-1">โฮมเมดแท้ 100%</h4>
+              <p class="text-xs text-gray-500">ปั่นสดใหม่ในแล็บหลังร้านทุกเช้า ควบคุมความหวานกำลังดี</p>
+            </div>
+
+            <div class="bg-white p-4 rounded-2xl border border-icePink-100 shadow-sm">
+              <div class="w-10 h-10 rounded-xl bg-iceMint-100 flex items-center justify-center text-iceMint-500 mb-3">
+                <i data-lucide="leaf" class="w-5 h-5"></i>
+              </div>
+              <h4 class="font-bold text-gray-800 text-sm mb-1">วัตถุดิบคัดสรร</h4>
+              <p class="text-xs text-gray-500">ผลไม้สดจากสวน นมสดฟาร์มเปิด ไม่แต่งกลิ่นหรือสีสังเคราะห์</p>
+            </div>
+
+            <div class="bg-white p-4 rounded-2xl border border-icePink-100 shadow-sm">
+              <div class="w-10 h-10 rounded-xl bg-iceYellow-200 flex items-center justify-center text-amber-600 mb-3">
+                <i data-lucide="smile" class="w-5 h-5"></i>
+              </div>
+              <h4 class="font-bold text-gray-800 text-sm mb-1">รอยยิ้มในทุกคำ</h4>
+              <p class="text-xs text-gray-500">บรรยากาศสดใส พร้อมพี่ๆ ทีมงานคอยตักให้ชิมได้ไม่อั้น</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- STORE LOCATION & HOURS SECTION -->
+  <section id="location" class="py-20 bg-white relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-14">
+        <span class="inline-block text-xs font-extrabold uppercase tracking-widest text-icePink-500 bg-icePink-100 border border-icePink-200 px-4 py-1 rounded-full mb-3">
+          📍 Visit Our Shop
+        </span>
+        <h2 class="text-3xl sm:text-5xl font-black text-gray-800 tracking-tight">
+          แวะมาเติมความหวานที่หน้าร้าน
+        </h2>
+        <p class="text-gray-600 mt-3 text-base sm:text-lg">
+          ร้านน่ารัก มุมถ่ายรูปเพียบ แอร์เย็นฉ่ำ พร้อมไอติมให้ลองชิมก่อนเลือกได้เลย!
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+        
+        <!-- Store Info Details -->
+        <div class="lg:col-span-5 bg-gradient-to-br from-icePink-50 via-white to-iceYellow-50/50 p-8 rounded-3xl border-2 border-icePink-200 shadow-lg flex flex-col justify-between">
+          <div class="space-y-6">
+            
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 rounded-2xl bg-icePink-500 text-white flex items-center justify-center shrink-0 shadow-md">
+                <i data-lucide="map-pin" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-gray-800 text-lg">ที่ตั้งร้าน ICE here (สาขาอารีย์)</h4>
+                <p class="text-sm text-gray-600 mt-1 leading-relaxed">
+                  ซอยอารีย์สัมพันธ์ 4 แขวงพญาไท เขตพญาไท กรุงเทพมหานคร 10400 <br>
+                  <span class="text-xs text-icePink-500 font-semibold">(เดินจาก BTS อารีย์ ทางออก 3 เพียง 5 นาที มีที่จอดรถหน้าร้าน)</span>
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 rounded-2xl bg-iceMint-400 text-white flex items-center justify-center shrink-0 shadow-md">
+                <i data-lucide="clock" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-gray-800 text-lg">เวลาเปิด - ปิดทำการ</h4>
+                <ul class="text-sm text-gray-600 mt-1 space-y-1 font-medium">
+                  <li class="flex justify-between gap-4">
+                    <span>จันทร์ - ศุกร์ :</span>
+                    <span class="font-bold text-gray-800">11:00 - 21:30 น.</span>
+                  </li>
+                  <li class="flex justify-between gap-4">
+                    <span>เสาร์ - อาทิตย์ & วันหยุด :</span>
+                    <span class="font-bold text-icePink-500">10:30 - 22:00 น.</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 rounded-2xl bg-amber-400 text-white flex items-center justify-center shrink-0 shadow-md">
+                <i data-lucide="phone-call" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-gray-800 text-lg">ติดต่อ & สั่งจองล่วงหน้า</h4>
+                <p class="text-sm text-gray-600 mt-1">
+                  โทร: <strong>089-123-4567</strong><br>
+                  LINE Official: <strong class="text-emerald-600">@icehere.bkk</strong>
+                </p>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Social Links -->
+          <div class="pt-6 border-t border-icePink-200 mt-6">
+            <div class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">ติดตามอัปเดตรสชาติใหม่</div>
+            <div class="flex items-center gap-3">
+              <a href="#" class="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center text-pink-600 hover:scale-110 hover:border-pink-300 transition-all shadow-sm">
+                <i data-lucide="instagram" class="w-5 h-5"></i>
+              </a>
+              <a href="#" class="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center text-blue-600 hover:scale-110 hover:border-blue-300 transition-all shadow-sm">
+                <i data-lucide="facebook" class="w-5 h-5"></i>
+              </a>
+              <a href="#" class="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center text-black hover:scale-110 hover:border-gray-400 transition-all shadow-sm">
+                <i data-lucide="music-2" class="w-5 h-5"></i>
+              </a>
+              <span class="text-xs text-gray-500 font-semibold ml-2">@icehere.bkk</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Simulated Interactive Map Preview -->
+        <div class="lg:col-span-7 bg-white rounded-3xl border-2 border-icePink-200 overflow-hidden shadow-lg flex flex-col">
+          <!-- Map Header bar -->
+          <div class="bg-icePink-100 px-6 py-3 border-b border-icePink-200 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-rose-400"></span>
+              <span class="w-3 h-3 rounded-full bg-amber-400"></span>
+              <span class="w-3 h-3 rounded-full bg-emerald-400"></span>
+              <span class="text-xs font-bold text-gray-700 ml-2">Google Maps - ICE here Flagship Store</span>
+            </div>
+            <a href="https://maps.google.com" target="_blank" class="text-xs font-bold text-icePink-500 hover:underline flex items-center gap-1">
+              เปิดในแอพแผนที่ <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+
+          <!-- Map Simulation Canvas -->
+          <div class="relative flex-1 min-h-[360px] bg-sky-50 flex items-center justify-center p-6 overflow-hidden">
+            <!-- Grid Lines for map feel -->
+            <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#0284c7_1px,transparent_1px)] [background-size:16px_16px]"></div>
+            
+            <!-- Road graphics -->
+            <div class="absolute w-full h-12 bg-gray-200 top-1/2 -translate-y-1/2 border-y-2 border-white flex items-center justify-around">
+              <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">ถนนพหลโยธิน - อารีย์</span>
+            </div>
+            <div class="absolute h-full w-12 bg-gray-200 left-1/3 border-x-2 border-white"></div>
+
+            <!-- Shop Landmark Pin -->
+            <div class="relative z-10 flex flex-col items-center animate-bounce-slow">
+              <div class="bg-white px-4 py-2 rounded-2xl shadow-xl border-2 border-icePink-400 flex items-center gap-2 mb-1">
+                <span class="text-2xl">🍦</span>
+                <div>
+                  <div class="font-extrabold text-sm text-gray-800">ICE here!</div>
+                  <div class="text-[10px] text-emerald-600 font-semibold">● เปิดให้บริการอยู่ (Open Now)</div>
+                </div>
+              </div>
+              <div class="w-8 h-8 rounded-full bg-icePink-500 text-white flex items-center justify-center shadow-lg border-2 border-white">
+                <i data-lucide="map-pin" class="w-5 h-5"></i>
+              </div>
+              <div class="w-4 h-1.5 bg-black/20 rounded-full blur-[2px] mt-1"></div>
+            </div>
+
+            <!-- Nearby Landmarks -->
+            <div class="absolute top-8 right-12 bg-white/90 px-3 py-1.5 rounded-xl border border-gray-200 text-xs font-semibold text-gray-600 shadow-sm flex items-center gap-1.5">
+              <span>🚇</span> BTS อารีย์ (350 ม.)
+            </div>
+            <div class="absolute bottom-8 left-8 bg-white/90 px-3 py-1.5 rounded-xl border border-gray-200 text-xs font-semibold text-gray-600 shadow-sm flex items-center gap-1.5">
+              <span>☕</span> คาเฟ่ & ลานจอดรถ
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-gradient-to-b from-white to-icePink-100/60 border-t border-icePink-200 pt-16 pb-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+      
+      <!-- Brand Logo -->
+      <div class="inline-flex items-center gap-3">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-icePink-400 to-iceYellow-300 flex items-center justify-center shadow-sm">
+          <i data-lucide="ice-cream-cone" class="w-6 h-6 text-white stroke-[2.5]"></i>
+        </div>
+        <span class="text-2xl font-black text-gray-800">ICE here</span>
+      </div>
+
+      <p class="text-sm text-gray-500 max-w-md mx-auto">
+        โฮมเมดไอศกรีมพาสเทลที่อยากให้ทุกคนมีความสุขในทุกสคูป 💖 ออกแบบด้วยความใส่ใจและวัตถุดิบคุณภาพ
+      </p>
+
+      <div class="flex justify-center gap-6 text-sm font-semibold text-gray-600">
+        <a href="#home" class="hover:text-icePink-500 transition-colors">หน้าแรก</a>
+        <a href="#builder" class="hover:text-icePink-500 transition-colors">Scoop Builder</a>
+        <a href="#flavors" class="hover:text-icePink-500 transition-colors">เมนูรสชาติ</a>
+        <a href="#story" class="hover:text-icePink-500 transition-colors">เรื่องราวของเรา</a>
+        <a href="#location" class="hover:text-icePink-500 transition-colors">พิกัดร้าน</a>
+      </div>
+
+      <div class="pt-6 border-t border-icePink-200/80 text-xs text-gray-400">
+        © 2024 ICE here Creamery. All rights reserved. • Made with ❤️ for Ice Cream Lovers.
+      </div>
+    </div>
+  </footer>
+
+  <!-- RECIPE POPUP MODAL (SHOWS WHEN CLICKING SAVE / SHARE) -->
+  <div id="recipeModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 border-4 border-icePink-300 shadow-2xl transform transition-all text-center space-y-4">
+      <div class="w-16 h-16 rounded-full bg-icePink-100 text-icePink-500 flex items-center justify-center mx-auto text-3xl">
+        🎉
+      </div>
+      <h3 class="text-2xl font-black text-gray-800">สูตรไอติมของคุณพร้อมแล้ว!</h3>
+      <p class="text-sm text-gray-500">
+        โชว์หน้าจอนี้ให้พนักงานที่เคาน์เตอร์ร้าน <strong>ICE here</strong> เพื่อสั่งทำไอติมถ้วยโปรดของคุณได้ทันที!
+      </p>
+
+      <!-- Receipt Card -->
+      <div class="bg-icePink-50/70 p-4 rounded-2xl border border-icePink-200 text-left space-y-2 font-mono text-xs text-gray-700">
+        <div class="flex justify-between font-bold border-b border-icePink-200 pb-2 text-sm text-gray-800 font-sans">
+          <span>ICE here Custom Order</span>
+          <span id="modalCode">#ICE-99</span>
+        </div>
+        <div id="modalDetails" class="space-y-1 pt-1 font-sans">
+          <!-- Filled by JS -->
+        </div>
+        <div class="border-t border-icePink-200 pt-2 flex justify-between font-bold text-sm text-icePink-600 font-sans">
+          <span>ยอดรวม</span>
+          <span id="modalPrice">119 ฿</span>
+        </div>
+      </div>
+
+      <div class="flex gap-3 pt-2">
+        <button onclick="closeModal()" class="w-full py-3 bg-gradient-to-r from-icePink-400 to-icePink-500 text-white rounded-xl font-bold text-sm shadow-md hover:shadow-lg transition-all">
+          ตกลง / ปิดหน้าต่าง
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Mobile Menu Toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+    });
+
+    // ==========================================
+    // 1. DATA: FLAVORS & PRICING (WITH REAL PHOTOS & SOLID FALLBACK COLORS)
+    // ==========================================
+    const FLAVORS = [
+      {
+        id: 'strawberry',
+        nameTh: 'Strawberry Cloud',
+        nameEn: 'สตรอว์เบอร์รี คลาวด์',
+        desc: 'สตรอว์เบอร์รีแท้ผสมครีมชีสเค้กเนียนนุ่ม สอดไส้บิสกิตกรุบกรอบ หวานละมุนกำลังดี',
+        color: '#FFB3C6',
+        image: 'https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=800&q=80',
+        badge: 'Best Seller ⭐',
+        category: 'bestseller',
+        icon: '🍓'
+      },
+      {
+        id: 'mint',
+        nameTh: 'Minty Bubble Dream',
+        nameEn: 'มิ้นต์ บับเบิล ดรีม',
+        desc: 'ใบมิ้นต์หอมเย็นสดชื่น ผสมผสานดาร์กช็อกโกแลตชิปสไตล์ช็อกมิ้นต์ตัวจริง',
+        color: '#A3E4D7',
+        image: 'https://images.unsplash.com/photo-1505394033641-40c6ad1178d7?auto=format&fit=crop&w=800&q=80',
+        badge: 'Popular 🔥',
+        category: 'chocolate',
+        icon: '🌿'
+      },
+      {
+        id: 'vanilla',
+        nameTh: 'Honey Vanilla Bean',
+        nameEn: 'ฮันนี่ วานิลลา บีน',
+        desc: 'วานิลลามาดากัสการ์แท้ เมล็ดแน่น หอมน้ำผึ้งป่าธรรมชาติ นุ่มละมุนติดปลายลิ้น',
+        color: '#F9E79F',
+        image: 'https://images.unsplash.com/photo-1570197788417-0e82375c9371?auto=format&fit=crop&w=800&q=80',
+        badge: 'Classic 🍯',
+        category: 'bestseller',
+        icon: '🌼'
+      },
+      {
+        id: 'chocolate',
+        nameTh: 'Midnight Fudgy Choc',
+        nameEn: 'มิดไนท์ ฟัดจี้ ช็อก',
+        desc: 'ดาร์กช็อกโกแลตเข้มข้น 70% จากเบลเยียม รสชาติเข้มลึก ไม่หวานเลี่ยน',
+        color: '#6E2C00',
+        image: 'https://images.unsplash.com/photo-1580915411954-282cb1b0d780?auto=format&fit=crop&w=800&q=80',
+        badge: 'Rich 🍫',
+        category: 'chocolate',
+        icon: '🍫'
+      },
+      {
+        id: 'yuzu',
+        nameTh: 'Yuzu Sunshine Sorbet',
+        nameEn: 'ยูซุ ซันไชน์ ซอร์เบต์',
+        desc: 'ส้มยูซุแท้ 100% เปรี้ยวหวานสดชื่นตื่นเต็มตา ไร้นม ไร้ไขมัน คลายร้อนได้ดีเยี่ยม',
+        color: '#FAD7A0',
+        image: 'https://images.unsplash.com/photo-1534706936160-d5ee67737249?auto=format&fit=crop&w=800&q=80',
+        badge: 'Vegan 🌱',
+        category: 'vegan',
+        icon: '🍊'
+      },
+      {
+        id: 'matcha',
+        nameTh: 'Kyoto Creamy Matcha',
+        nameEn: 'เกียวโต ครีมมี่ มัทฉะ',
+        desc: 'ผงมัทฉะเกรดพิธีการจากเมืองอุจิ เกียวโต เข้มข้น หอมกลิ่นชาคั่วละมุนใจ',
+        color: '#A9DFBF',
+        image: 'https://images.unsplash.com/photo-1501443762994-82bd5dace89a?auto=format&fit=crop&w=800&q=80',
+        badge: 'Uji Grade 🍵',
+        category: 'chocolate',
+        icon: '🍵'
+      }
+    ];
+
+    // ==========================================
+    // 2. STATE MANAGEMENT FOR BUILDER
+    // ==========================================
+    let builderState = {
+      vessel: 'cone', // 'cone' | 'cup' | 'brioche'
+      scoopCount: 2,
+      activeSlot: 0, // which slot is currently being chosen (0, 1, 2)
+      selectedFlavors: [FLAVORS[0], FLAVORS[1]], // default 2 scoops
+      toppings: {
+        sprinkles: false,
+        whipped: false,
+        cherry: false,
+        chocolate: false,
+      }
+    };
+
+    const PRICES = {
+      scoop: { 1: 69, 2: 119, 3: 159 },
+      vessel: { cone: 0, cup: 0, brioche: 25 },
+      toppings: { sprinkles: 10, whipped: 15, cherry: 10, chocolate: 10 }
+    };
+
+    // ==========================================
+    // 3. RENDER FUNCTIONS
+    // ==========================================
+
+    // Initialize Menu Flavors Grid (with Real Photography)
+    function renderMenuGrid(items = FLAVORS) {
+      const container = document.getElementById('menuFlavorsGrid');
+      container.innerHTML = items.map(flavor => `
+        <div class="bg-white rounded-3xl p-5 border-2 border-icePink-100 hover:border-icePink-300 shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between group overflow-hidden">
+          <div>
+            <div class="w-full h-52 rounded-2xl overflow-hidden mb-5 relative shadow-inner">
+              <img 
+                src="${flavor.image}" 
+                alt="${flavor.nameTh}" 
+                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 filter contrast-[1.03]"
+                loading="lazy"
+              >
+              <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+              <span class="absolute top-3 right-3 bg-white/95 backdrop-blur-sm text-gray-800 text-xs font-bold px-3 py-1 rounded-full shadow-md border border-white/60">
+                ${flavor.badge}
+              </span>
+            </div>
+            <div class="flex items-center justify-between mb-1">
+              <h3 class="text-xl font-black text-gray-800">${flavor.nameTh}</h3>
+            </div>
+            <div class="text-xs font-bold text-icePink-500 mb-2.5">${flavor.nameEn}</div>
+            <p class="text-xs sm:text-sm text-gray-600 leading-relaxed">${flavor.desc}</p>
+          </div>
+          <div class="pt-5 mt-4 border-t border-gray-100 flex items-center justify-between">
+            <span class="text-xs font-semibold text-gray-400">สคูปละ 69 ฿</span>
+            <button onclick="pickFlavorForBuilder('${flavor.id}')" class="px-4 py-2 bg-icePink-100 hover:bg-icePink-500 text-icePink-600 hover:text-white rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow-sm active:scale-95">
+              <span>เลือกใส่ Scoop</span>
+              <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+        </div>
+      `).join('');
+      lucide.createIcons();
+    }
+
+    // Filter flavors by category
+    function filterFlavors(category) {
+      document.querySelectorAll('.flavor-filter-btn').forEach(btn => {
+        if (btn.getAttribute('data-category') === category) {
+          btn.className = 'flavor-filter-btn px-5 py-2 rounded-full text-sm font-bold bg-icePink-500 text-white shadow-md transition-all active:scale-95';
+        } else {
+          btn.className = 'flavor-filter-btn px-5 py-2 rounded-full text-sm font-bold bg-gray-100 text-gray-700 hover:bg-icePink-100 transition-all active:scale-95';
+        }
+      });
+
+      if (category === 'all') {
+        renderMenuGrid(FLAVORS);
+      } else {
+        const filtered = FLAVORS.filter(f => f.category === category);
+        renderMenuGrid(filtered);
+      }
+    }
+
+    // Render Flavor Selection Grid in Builder
+    function renderFlavorSelectionGrid() {
+      const container = document.getElementById('flavorSelectionGrid');
+      const currentSelected = builderState.selectedFlavors[builderState.activeSlot];
+
+      container.innerHTML = FLAVORS.map(flavor => {
+        const isSelected = currentSelected && currentSelected.id === flavor.id;
+        return `
+          <button type="button" onclick="selectFlavor('${flavor.id}')" class="p-2 rounded-xl border text-left transition-all flex items-center gap-2.5 ${
+            isSelected 
+              ? 'border-icePink-500 bg-icePink-100/70 shadow-sm ring-2 ring-icePink-300' 
+              : 'border-gray-200 bg-white hover:border-icePink-300'
+          }">
+            <img 
+              src="${flavor.image}" 
+              alt="${flavor.nameTh}" 
+              class="w-8 h-8 rounded-full object-cover shrink-0 shadow-sm border border-white"
+            >
+            <div class="truncate">
+              <div class="text-xs font-bold text-gray-800 truncate">${flavor.nameTh}</div>
+              <div class="text-[10px] text-gray-400 truncate">${flavor.badge}</div>
+            </div>
+          </button>
+        `;
+      }).join('');
+    }
+
+    // Render Scoop Slot Selection Tabs
+    function renderScoopSlotTabs() {
+      const container = document.getElementById('scoopSlotTabs');
+      let html = '';
+      for (let i = 0; i < builderState.scoopCount; i++) {
+        const flavor = builderState.selectedFlavors[i] || FLAVORS[i % FLAVORS.length];
+        const isActive = builderState.activeSlot === i;
+        html += `
+          <button type="button" onclick="setActiveSlot(${i})" class="flex-1 py-2 px-3 rounded-xl border text-xs font-bold flex items-center justify-center gap-1.5 transition-all ${
+            isActive 
+              ? 'border-icePink-500 bg-icePink-500 text-white shadow-md' 
+              : 'border-gray-200 bg-white text-gray-600 hover:border-icePink-200'
+          }">
+            <span>ลูกที่ ${i + 1}:</span>
+            <span class="truncate max-w-[80px]">${flavor.nameTh.split(' ')[0]}</span>
+          </button>
+        `;
+      }
+      container.innerHTML = html;
+      document.getElementById('flavorNotice').textContent = `กำลังเลือกรสให้ ลูกที่ ${builderState.activeSlot + 1}`;
+    }
+
+    // Update Visual Representation of Ice Cream (Realistic 3D Scoop Stacking)
+    function updateVisualStage() {
+      const container = document.getElementById('visualScoopsContainer');
+      const vesselContainer = document.getElementById('visualVesselContainer');
+
+      // 1. Render Scoops (from top to bottom visually with realistic phototexture + ruffled skirts)
+      let scoopsHtml = '';
+      for (let i = builderState.scoopCount - 1; i >= 0; i--) {
+        const flavor = builderState.selectedFlavors[i] || FLAVORS[0];
+        const marginClass = i > 0 ? '-mb-8' : 'mb-0';
+        const widthClass = i === 2 ? 'w-36 h-30' : (i === 1 ? 'w-40 h-34' : 'w-44 h-38');
+
+        scoopsHtml += `
+          <div class="realistic-scoop ${widthClass} ${marginClass} z-[${10 + i}] flex items-center justify-center relative overflow-visible transform hover:scale-105 transition-transform"
+               style="background-color: ${flavor.color}; background-image: url('${flavor.image}'); background-size: 160%; background-position: center;">
+            
+            <!-- Scoop ruffled bottom skirt (authentic ice cream foot) -->
+            <div class="scoop-skirt" style="background-color: ${flavor.color}; background-image: url('${flavor.image}');"></div>
+
+            <!-- Crisp Flavor Label Tag -->
+            <span class="bg-black/60 backdrop-blur-sm text-[11px] font-bold text-white px-2.5 py-0.5 rounded-full shadow-md z-20 pointer-events-none tracking-wide">
+              ${flavor.nameTh.split(' ')[0]}
+            </span>
+
+            ${builderState.toppings.sprinkles ? `
+              <div class="sprinkle bg-pink-400 top-4 right-6 rotate-45 z-20"></div>
+              <div class="sprinkle bg-yellow-300 bottom-6 left-8 -rotate-12 z-20"></div>
+              <div class="sprinkle bg-cyan-400 top-8 left-12 rotate-90 z-20"></div>
+              <div class="sprinkle bg-purple-400 bottom-8 right-10 rotate-12 z-20"></div>
+              <div class="sprinkle bg-emerald-400 top-12 right-14 rotate-30 z-20"></div>
+            ` : ''}
+          </div>
+        `;
+      }
+      container.innerHTML = scoopsHtml;
+
+      // 2. Render Vessel (Using Real Artisan Waffle Cone Photo)
+      if (builderState.vessel === 'cone') {
+        vesselContainer.innerHTML = `
+          <div class="relative -mt-6 z-20 flex justify-center">
+            <img 
+              src="assets/waffle_cone.png" 
+              alt="Real Artisan Waffle Cone" 
+              class="w-40 sm:w-44 h-auto object-contain filter drop-shadow-[0_16px_16px_rgba(0,0,0,0.35)] select-none pointer-events-none transform hover:scale-[1.02] transition-transform"
+            >
+          </div>
+        `;
+      } else if (builderState.vessel === 'cup') {
+        vesselContainer.innerHTML = `
+          <div class="w-44 h-26 bg-gradient-to-b from-rose-200 via-icePink-200 to-rose-300 rounded-b-3xl border-t-4 border-white shadow-2xl relative -mt-4 flex flex-col items-center justify-center">
+            <div class="w-28 h-6 border-b-2 border-white/60 flex items-center justify-center">
+              <span class="text-xs font-black text-rose-700 tracking-widest uppercase">ICE here</span>
+            </div>
+            <span class="text-[9px] text-rose-600 font-bold mt-1">Artisan Gelato Cup</span>
+          </div>
+        `;
+      } else if (builderState.vessel === 'brioche') {
+        vesselContainer.innerHTML = `
+          <div class="w-48 h-20 bg-gradient-to-b from-amber-400 via-amber-500 to-amber-700 rounded-b-full border-t-4 border-amber-200 shadow-2xl relative -mt-4 flex items-center justify-center">
+            <span class="text-xs font-black text-amber-950 bg-amber-200/90 px-3 py-1 rounded-full shadow-sm">Golden Brioche Bun 🍞</span>
+          </div>
+        `;
+      }
+
+      // 3. Toppings Visibility
+      document.getElementById('visualCherry').classList.toggle('hidden', !builderState.toppings.cherry);
+      document.getElementById('visualWhipped').classList.toggle('hidden', !builderState.toppings.whipped);
+      document.getElementById('visualChocolate').classList.toggle('hidden', !builderState.toppings.chocolate);
+
+      // 4. Update Summary & Price
+      updateSummaryCard();
+    }
+
+    // Update Summary Card
+    function updateSummaryCard() {
+      // Calculate Price
+      let total = PRICES.scoop[builderState.scoopCount];
+      total += PRICES.vessel[builderState.vessel];
+      if (builderState.toppings.sprinkles) total += PRICES.toppings.sprinkles;
+      if (builderState.toppings.whipped) total += PRICES.toppings.whipped;
+      if (builderState.toppings.cherry) total += PRICES.toppings.cherry;
+      if (builderState.toppings.chocolate) total += PRICES.toppings.chocolate;
+
+      document.getElementById('totalPrice').textContent = `${total} ฿`;
+
+      const vesselNames = { cone: 'Waffle Cone', cup: 'Pastel Cup', brioche: 'Warm Brioche' };
+      document.getElementById('summarySubtitle').textContent = `${vesselNames[builderState.vessel]} • ${builderState.scoopCount} ลูก`;
+
+      // Pills
+      let pillsHtml = '';
+      builderState.selectedFlavors.slice(0, builderState.scoopCount).forEach((f, idx) => {
+        pillsHtml += `<span class="bg-icePink-100 text-icePink-600 text-[10px] font-bold px-2 py-0.5 rounded-md">${idx + 1}. ${f.nameTh.split(' ')[0]}</span>`;
+      });
+      if (builderState.toppings.sprinkles) pillsHtml += `<span class="bg-amber-100 text-amber-700 text-[10px] font-bold px-2 py-0.5 rounded-md">สปริงเคิล</span>`;
+      if (builderState.toppings.whipped) pillsHtml += `<span class="bg-stone-100 text-stone-700 text-[10px] font-bold px-2 py-0.5 rounded-md">วิปครีม</span>`;
+      if (builderState.toppings.cherry) pillsHtml += `<span class="bg-rose-100 text-rose-700 text-[10px] font-bold px-2 py-0.5 rounded-md">เชอร์รี่</span>`;
+      if (builderState.toppings.chocolate) pillsHtml += `<span class="bg-amber-900 text-white text-[10px] font-bold px-2 py-0.5 rounded-md">ซอสช็อก</span>`;
+
+      document.getElementById('summaryPills').innerHTML = pillsHtml;
+
+      // Unique Recipe Code
+      const code = `ICE-${builderState.scoopCount}${builderState.vessel[0].toUpperCase()}-${Math.floor(total)}`;
+      document.getElementById('recipeCodeBadge').textContent = `#${code}`;
+    }
+
+    // ==========================================
+    // 4. INTERACTION HANDLERS
+    // ==========================================
+    function selectVessel(vessel) {
+      builderState.vessel = vessel;
+      ['cone', 'cup', 'brioche'].forEach(v => {
+        const el = document.getElementById(`vessel-${v}`);
+        if (!el) return;
+        if (v === vessel) {
+          el.classList.add('border-icePink-400', 'bg-icePink-50', 'shadow-sm');
+          el.classList.remove('border-gray-200', 'bg-white');
+        } else {
+          el.classList.remove('border-icePink-400', 'bg-icePink-50', 'shadow-sm');
+          el.classList.add('border-gray-200', 'bg-white');
+        }
+      });
+      updateVisualStage();
+    }
+
+    function setScoopCount(count) {
+      builderState.scoopCount = count;
+      if (builderState.selectedFlavors.length < count) {
+        for (let i = builderState.selectedFlavors.length; i < count; i++) {
+          builderState.selectedFlavors.push(FLAVORS[i % FLAVORS.length]);
+        }
+      }
+      if (builderState.activeSlot >= count) {
+        builderState.activeSlot = count - 1;
+      }
+
+      [1, 2, 3].forEach(c => {
+        const el = document.getElementById(`count-${c}`);
+        if (!el) return;
+        if (c === count) {
+          el.classList.add('border-icePink-400', 'bg-icePink-50', 'text-icePink-600', 'shadow-sm');
+          el.classList.remove('border-gray-200', 'bg-white', 'text-gray-700');
+        } else {
+          el.classList.remove('border-icePink-400', 'bg-icePink-50', 'text-icePink-600', 'shadow-sm');
+          el.classList.add('border-gray-200', 'bg-white', 'text-gray-700');
+        }
+      });
+
+      renderScoopSlotTabs();
+      renderFlavorSelectionGrid();
+      updateVisualStage();
+    }
+
+    function setActiveSlot(slotIndex) {
+      builderState.activeSlot = slotIndex;
+      renderScoopSlotTabs();
+      renderFlavorSelectionGrid();
+    }
+
+    function selectFlavor(flavorId) {
+      const flavor = FLAVORS.find(f => f.id === flavorId);
+      if (!flavor) return;
+
+      builderState.selectedFlavors[builderState.activeSlot] = flavor;
+      
+      // Auto advance to next slot if available for smooth experience
+      if (builderState.activeSlot < builderState.scoopCount - 1) {
+        builderState.activeSlot++;
+      }
+
+      renderScoopSlotTabs();
+      renderFlavorSelectionGrid();
+      updateVisualStage();
+
+      // Safe confetti
+      if (typeof confetti === 'function') {
+        confetti({
+          particleCount: 15,
+          spread: 40,
+          origin: { y: 0.6 }
+        });
+      }
+    }
+
+    function pickFlavorForBuilder(flavorId) {
+      selectFlavor(flavorId);
+      // Smooth scroll to builder
+      document.getElementById('builder').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function toggleTopping(toppingName) {
+      builderState.toppings[toppingName] = !builderState.toppings[toppingName];
+      const el = document.getElementById(`top-${toppingName}`);
+      if (builderState.toppings[toppingName]) {
+        el.classList.add('border-icePink-500', 'bg-icePink-50', 'shadow-sm');
+        el.classList.remove('border-gray-200', 'bg-white');
+      } else {
+        el.classList.remove('border-icePink-500', 'bg-icePink-50', 'shadow-sm');
+        el.classList.add('border-gray-200', 'bg-white');
+      }
+      updateVisualStage();
+    }
+
+    function randomizeIceCream() {
+      const vessels = ['cone', 'cup', 'brioche'];
+      const randomVessel = vessels[Math.floor(Math.random() * vessels.length)];
+      selectVessel(randomVessel);
+
+      const randomCount = Math.floor(Math.random() * 3) + 1;
+      setScoopCount(randomCount);
+
+      const shuffledFlavors = [...FLAVORS].sort(() => 0.5 - Math.random());
+      for (let i = 0; i < randomCount; i++) {
+        builderState.selectedFlavors[i] = shuffledFlavors[i];
+      }
+
+      builderState.toppings.sprinkles = Math.random() > 0.5;
+      builderState.toppings.whipped = Math.random() > 0.5;
+      builderState.toppings.cherry = Math.random() > 0.4;
+      builderState.toppings.chocolate = Math.random() > 0.6;
+
+      ['sprinkles', 'whipped', 'cherry', 'chocolate'].forEach(t => {
+        const el = document.getElementById(`top-${t}`);
+        if (builderState.toppings[t]) {
+          el.classList.add('border-icePink-500', 'bg-icePink-50', 'shadow-sm');
+          el.classList.remove('border-gray-200', 'bg-white');
+        } else {
+          el.classList.remove('border-icePink-500', 'bg-icePink-50', 'shadow-sm');
+          el.classList.add('border-gray-200', 'bg-white');
+        }
+      });
+
+      renderScoopSlotTabs();
+      renderFlavorSelectionGrid();
+      updateVisualStage();
+
+      // Confetti celebration
+      if (typeof confetti === 'function') {
+        confetti({
+          particleCount: 50,
+          spread: 70,
+          origin: { y: 0.6 }
+        });
+      }
+    }
+
+    function resetBuilder() {
+      builderState = {
+        vessel: 'cone',
+        scoopCount: 2,
+        activeSlot: 0,
+        selectedFlavors: [FLAVORS[0], FLAVORS[1]],
+        toppings: {
+          sprinkles: false,
+          whipped: false,
+          cherry: false,
+          chocolate: false,
+        }
+      };
+      selectVessel('cone');
+      setScoopCount(2);
+      ['sprinkles', 'whipped', 'cherry', 'chocolate'].forEach(t => {
+        const el = document.getElementById(`top-${t}`);
+        el.classList.remove('border-icePink-500', 'bg-icePink-50', 'shadow-sm');
+        el.classList.add('border-gray-200', 'bg-white');
+      });
+      renderScoopSlotTabs();
+      renderFlavorSelectionGrid();
+      updateVisualStage();
+    }
+
+    // Modal & Save Functions
+    function celebrateAndSaveRecipe() {
+      if (typeof confetti === 'function') {
+        confetti({
+          particleCount: 100,
+          spread: 80,
+          origin: { y: 0.5 }
+        });
+      }
+
+      const modal = document.getElementById('recipeModal');
+      const code = document.getElementById('recipeCodeBadge').textContent;
+      document.getElementById('modalCode').textContent = code;
+      document.getElementById('modalPrice').textContent = document.getElementById('totalPrice').textContent;
+
+      const vesselNames = { cone: 'Waffle Cone', cup: 'Pastel Cup', brioche: 'Warm Brioche' };
+      let detailsHtml = `
+        <div>• ภาชนะ: <strong>${vesselNames[builderState.vessel]}</strong></div>
+        <div>• จำนวนไอติม: <strong>${builderState.scoopCount} ลูก</strong></div>
+      `;
+      builderState.selectedFlavors.slice(0, builderState.scoopCount).forEach((f, i) => {
+        detailsHtml += `<div class="pl-3 text-icePink-600 font-semibold">- ลูกที่ ${i+1}: ${f.nameTh} (${f.nameEn})</div>`;
+      });
+      
+      const activeTops = [];
+      if (builderState.toppings.sprinkles) activeTops.push('เรนโบว์สปริงเคิล');
+      if (builderState.toppings.whipped) activeTops.push('วิปครีมฟู');
+      if (builderState.toppings.cherry) activeTops.push('เชอร์รี่เชื่อม');
+      if (builderState.toppings.chocolate) activeTops.push('ซอสช็อกโกแลต');
+      
+      if (activeTops.length > 0) {
+        detailsHtml += `<div>• ท็อปปิ้ง: <strong>${activeTops.join(', ')}</strong></div>`;
+      } else {
+        detailsHtml += `<div>• ท็อปปิ้ง: <em>ไม่รับท็อปปิ้ง</em></div>`;
+      }
+
+      document.getElementById('modalDetails').innerHTML = detailsHtml;
+      modal.classList.remove('hidden');
+    }
+
+    function closeModal() {
+      document.getElementById('recipeModal').classList.add('hidden');
+    }
+
+    function copyRecipeSummary() {
+      const vesselNames = { cone: 'Waffle Cone', cup: 'Pastel Cup', brioche: 'Warm Brioche' };
+      const scoops = builderState.selectedFlavors.slice(0, builderState.scoopCount).map((f, i) => `ลูกที่ ${i+1}: ${f.nameTh}`).join(', ');
+      const price = document.getElementById('totalPrice').textContent;
+      const textToCopy = `🍦 สูตรไอติม ICE here: [${vesselNames[builderState.vessel]}] ${scoops} (ราคารวม ${price})`;
+
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        const btnText = document.getElementById('copyBtnText');
+        btnText.textContent = 'คัดลอกแล้ว! ✅';
+        setTimeout(() => {
+          btnText.textContent = 'คัดลอกสูตร';
+        }, 2000);
+      });
+    }
+
+    // INITIAL MOUNT
+    function initApp() {
+      try {
+        if (window.lucide) { lucide.createIcons(); }
+        renderMenuGrid();
+        renderScoopSlotTabs();
+        renderFlavorSelectionGrid();
+        updateVisualStage();
+      } catch (err) {
+        console.error("Initialization error:", err);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initApp);
+    } else {
+      initApp();
+    }
+  </script>
+</body>
+</html>
